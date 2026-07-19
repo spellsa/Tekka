@@ -1,0 +1,6 @@
+name = "gpt-5.6-terra"
+description = "gpt-5.6-terra"
+developer_instructions = ""
+
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
