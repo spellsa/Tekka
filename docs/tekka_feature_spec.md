@@ -347,7 +347,7 @@ LARAVEL
 
 ```text
 /search?q=laravel
-/tags/laravel
+/tags?tag=laravel
 ```
 
 次の記事は検索結果に表示しない。
@@ -586,7 +586,7 @@ React 側で作成する画面候補は次の通りである。
 /register         ユーザー登録
 /users/{id}       ユーザーページ
 /search           検索結果
-/tags/{tagName}   タグ別記事一覧
+/tags?tag={tagName}   タグ別記事一覧
 ```
 
 React Router を採用し、React 側の画面遷移は React Router で管理する。
