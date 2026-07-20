@@ -1,0 +1,17 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "agent": {
+        "ds-flash-high": {
+            "description": "Use DeepSeek V4 Flash with high reasoning as a subagent.",
+            "mode": "subagent",
+            "model": "opencode-go/deepseek-v4-flash",
+            "variant": "high"
+        },
+        "ds-flash-max": {
+            "description": "Use DeepSeek V4 Flash with max reasoning as a subagent.",
+            "mode": "subagent",
+            "model": "opencode-go/deepseek-v4-flash",
+            "variant": "max"
+        }
+    }
+}
