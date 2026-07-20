@@ -277,10 +277,16 @@ articles
 | `title`        | VARCHAR(100)    | 不可 | なし        | 記事タイトル               |
 | `body`         | MEDIUMTEXT      | 不可 | なし        | Markdown形式の記事本文     |
 | `score`        | INT             | 不可 | 0           | 記事スコア                 |
-| `published_at` | DATETIME        | 許可 | NULL        | 記事が公開された日時       |
+| `published_at` | TIMESTAMP       | 許可 | NULL        | 記事が公開された日時       |
 | `created_at`   | TIMESTAMP       | 許可 | Laravel標準 | 記事データの作成日時       |
 | `updated_at`   | TIMESTAMP       | 許可 | Laravel標準 | 記事データの最終更新日時   |
 | `deleted_at`   | TIMESTAMP       | 許可 | NULL        | 論理削除日時               |
+
+記事の日時カラムはすべて`TIMESTAMP`を使用する。`published_at`、`created_at`、`updated_at`、`deleted_at`はいずれも、記事に関する出来事が発生した瞬間を表すためである。
+
+`TIMESTAMP`は、DB接続のタイムゾーンとUTCの間で変換して保存・取得する。LaravelアプリケーションおよびDB接続のタイムゾーンをUTCに設定することで、すべての日時をUTC基準で扱う。APIはUTCを表す`Z`付きのISO 8601形式で返し、画面表示時の日本時間への変換はReact側で行う。
+
+`TIMESTAMP`は2038年までの日時を扱う型である。Phase 1ではこの範囲で問題ないものとする。
 
 ## 6.4 主キー・外部キー
 

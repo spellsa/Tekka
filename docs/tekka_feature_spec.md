@@ -49,6 +49,7 @@ Laravel は画面生成を担当せず、React フロントエンドに対して
 - 構成: SPA
 - ルーティング: React Router
 - API 通信: axios
+- Markdown表示: react-markdown
 - CSS: 素の CSS
 - Inertia: 使用しない
 - Tailwind CSS: 使用しない
@@ -294,12 +295,19 @@ Markdown の仕様は次の通りである。
 
 - 記事本文は Markdown 形式で入力する
 - 記事本文は Markdown 原文として保存する
-- Markdown の表示変換は React 側で行う
+- Markdown の表示変換には React 側で react-markdown を使用する
 - 使用できる Markdown 記法は、標準的な Markdown ライブラリで扱える範囲とする
 - 独自 Markdown 記法は実装しない
-- Markdown 内の HTML は許可しない
-- XSS 対策として、HTML 入力は無効化する
+- Markdown 内の HTML は許可しない。react-markdown の `rehypeRaw` は使用しない
+- XSS 対策として、`ReactMarkdown` の `skipHtml` プロパティを `true` に設定する
+- react-markdown が提供する安全な既定の URL 変換処理を使用し、危険な独自 `urlTransform` は設定しない
 - コードブロックは使用可能とする
+
+```tsx
+<ReactMarkdown skipHtml>{body}</ReactMarkdown>
+```
+
+`skipHtml`はboolean型のプロパティであり、`true`を指定するとMarkdown本文に含まれるHTMLを無視する。`body`はMarkdown原文を表すstring型の値である。
 
 HTML を許可すると、許可タグ・サニタイズ・XSS 対策の範囲を決める必要があるため、Phase 1 では許可しない。
 
@@ -586,8 +594,10 @@ React 側で作成する画面候補は次の通りである。
 /register         ユーザー登録
 /users/{id}       ユーザーページ
 /search           検索結果
-/tags?tag={tagName}   タグ別記事一覧
+/tags?tag={encodedNormalizedName}   タグ別記事一覧
 ```
+
+タグ別記事一覧の`tag`には、タグの`normalized_name`を指定する。URLを生成する際は、`URLSearchParams`などを使用して値をURLエンコードする。
 
 React Router を採用し、React 側の画面遷移は React Router で管理する。
 

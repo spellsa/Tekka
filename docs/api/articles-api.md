@@ -88,10 +88,24 @@ GET /api/search
 }
 ```
 
-React側では、`normalized_name`をタグページのURL生成に使用できる。
+React側では、`normalized_name`をタグページのURL生成に使用する。
+
+`normalized_name`には`#`や`&`などURL上で特別な意味を持つ文字が含まれる可能性があるため、文字列連結は行わず、`URLSearchParams`でクエリパラメータを生成する。
+
+```js
+const params = new URLSearchParams({
+  tag: tag.normalized_name,
+});
+
+const tagPageUrl = `/tags?${params.toString()}`;
+```
+
+`URLSearchParams`のコンストラクタはクエリパラメータのオブジェクトを受け取り、`toString()`はURLエンコード済みのクエリ文字列を返す。
 
 ```text
-/tags?tag={normalized_name}
+tag.normalized_name = "ci/cd"
+↓
+/tags?tag=ci%2Fcd
 ```
 
 タグの表示順はPhase 1では保証しない。React側はタグ配列の順序に依存しないものとする。
