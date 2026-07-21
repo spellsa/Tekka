@@ -1,4 +1,10 @@
 <?php
+/*
+    api.php
+    アプリケーションのAPIエンドポイントを定義するルートファイル
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;

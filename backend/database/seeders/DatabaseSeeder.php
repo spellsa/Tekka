@@ -1,4 +1,10 @@
 <?php
+/*
+    DatabaseSeeder.php
+    初期データを登録する各Seederを呼び出すクラス
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
 
 namespace Database\Seeders;
 

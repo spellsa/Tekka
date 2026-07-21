@@ -1,4 +1,10 @@
 <?php
+/*
+    ArticleSeeder.php
+    初期表示用の記事とタグの関連を登録するSeeder
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
 
 namespace Database\Seeders;
 

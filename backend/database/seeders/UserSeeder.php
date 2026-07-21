@@ -1,4 +1,10 @@
 <?php
+/*
+    UserSeeder.php
+    初期表示用のユーザーを登録するSeeder
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
 
 namespace Database\Seeders;
 

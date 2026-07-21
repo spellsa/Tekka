@@ -1,4 +1,10 @@
 <?php
+/*
+    ArticleEvaluationSeeder.php
+    初期評価と記事・ユーザースコアを登録するSeeder
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
 
 namespace Database\Seeders;
 

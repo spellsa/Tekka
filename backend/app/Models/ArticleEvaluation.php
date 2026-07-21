@@ -1,4 +1,10 @@
 <?php
+/*
+    ArticleEvaluation.php
+    記事への評価データと関連を扱うモデル
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
 
 namespace App\Models;
 
