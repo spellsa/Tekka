@@ -1,4 +1,5 @@
 <?php
+
 /*
     AuthController.php
     ユーザー認証関連の処理を担当するコントローラー
@@ -8,11 +9,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -39,7 +40,7 @@ class AuthController extends Controller
                 'username' => $user->username,
                 'profile' => $user->profile,
                 'score' => $user->score,
-            ]
+            ],
         ], 201);
     }
 
@@ -53,7 +54,7 @@ class AuthController extends Controller
             'password' => $validated['password'],
         ];
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'メールアドレスまたはパスワードが正しくありません。',
             ], 401);
@@ -69,17 +70,32 @@ class AuthController extends Controller
                 'username' => $user->username,
                 'profile' => $user->profile,
                 'score' => $user->score,
-            ]
+            ],
         ]);
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return response()->noContent();
+    }
+
+    // ログインユーザー情報取得
+    public function user(Request $request)
+    {
+        $user = $request->user();
+
+        return response()->json([
+            'data' => [
+                'id' => $user->id,
+                'username' => $user->username,
+                'profile' => $user->profile,
+                'score' => $user->score,
+            ],
+        ]);
     }
 }
