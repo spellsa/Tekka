@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TagController;
 
 // 認証ルート
@@ -30,3 +31,6 @@ Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])
 
 // タグルート
 Route::get('/tag-articles', [TagController::class, 'articles']);
+
+// 検索ルート
+Route::get('/search', [SearchController::class, 'search']);
