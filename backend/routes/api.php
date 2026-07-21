@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 
 // 認証ルート
 Route::post('/register', [AuthController::class, 'register']);
@@ -15,6 +16,13 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 Route::get('/user', [AuthController::class, 'user'])
     ->middleware('auth:sanctum');
+
+Route::put('/user', [UserController::class, 'update'])
+    ->middleware('auth:sanctum');
+
+// ユーザールート
+Route::get('/users/{id}/articles', [UserController::class, 'articles']);
+Route::get('/users/{id}', [UserController::class, 'show']);
 
 // 記事ルート
 Route::get('/articles', [ArticleController::class, 'index']);
