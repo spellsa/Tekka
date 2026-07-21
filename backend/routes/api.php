@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\TagController;
 
 // 認証ルート
 Route::post('/register', [AuthController::class, 'register']);
@@ -26,3 +27,6 @@ Route::put('/articles/{id}', [ArticleController::class, 'update'])
 
 Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])
     ->middleware('auth:sanctum');
+
+// タグルート
+Route::get('/tag-articles', [TagController::class, 'articles']);

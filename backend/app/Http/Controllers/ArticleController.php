@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticleRequest;
+use App\Http\Resources\ArticleListResource;
 use App\Models\Article;
 use App\Models\Tag;
 use App\Models\User;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 class ArticleController extends Controller
 {
     // 公開記事の一覧を取得する
-    public function index()
+    public function index(Request $request)
     {
         $articles = Article::query()
             ->with([
@@ -34,25 +35,9 @@ class ArticleController extends Controller
             ->paginate(20);
 
         // 記事データを整形する
-        $data = $articles->getCollection()->map(function (Article $article) {
-            return [
-                'id' => $article->id,
-                'title' => $article->title,
-                'excerpt' => $this->makeExcerpt($article->body, 200),
-                'score' => $article->score,
-                'published_at' => $article->published_at->toISOString(),
-                'author' => [
-                    'id' => $article->user->id,
-                    'username' => $article->user->username,
-                ],
-                'tags' => $article->tags->map(function ($tag) {
-                    return [
-                        'id' => $tag->id,
-                        'display_name' => $tag->display_name,
-                        'normalized_name' => $tag->normalized_name,
-                    ];
-                })->values(),
-            ];
+        $data = $articles->getCollection()->map(function (Article $article) use ($request) {
+            $resource = new ArticleListResource($article);
+            return $resource->toArray($request);
         })->values();
 
         // ページネーション情報を含めてレスポンスを返す
@@ -204,18 +189,6 @@ class ArticleController extends Controller
         });
 
         return response()->noContent();
-    }
-
-    // 記事の抜粋を抽出する
-    private function makeExcerpt(string $content, int $length): string
-    {
-        $trimmed = trim(preg_replace('/\s+/u', ' ', $content));
-
-        if (mb_strlen($trimmed) > $length) {
-            return mb_substr($trimmed, 0, $length) . '…';
-        }
-
-        return $trimmed;
     }
 
     // タグ名から関連付けるタグIDを取得する
