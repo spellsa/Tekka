@@ -14,3 +14,5 @@
 - phpにもnamespaceの概念があり、同じnamespace内ではuseがいらない。
 - $this->callすると、ClassName::classでClassNameの完全なクラス名（ほぼパスと同じ）を返す。
   その次にcallメソッドが内部でそのクラス名を用いてインスタンスを作成してから->runを呼ぶ。
+- seederは自分で決めたものをDBに入れる
+  factoryはランダムなデータを大量に投入するのに使う
