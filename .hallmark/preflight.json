@@ -1,0 +1,8 @@
+{
+  "date": "2026-07-22",
+  "font_stack": "Google Fonts added for Kaisei Decol, M PLUS Rounded 1c, Noto Sans JP, and Noto Sans",
+  "palette": "Custom OKLCH light-blue token system",
+  "motion": "motion-cut; no animation library installed",
+  "spacing": "4px-derived semantic token scale",
+  "framework": "Vite + React 19"
+}

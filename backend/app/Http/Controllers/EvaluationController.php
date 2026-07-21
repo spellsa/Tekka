@@ -98,9 +98,8 @@ class EvaluationController extends Controller
             ->count();
         $score = $highCount - $lowCount;
 
-        $article->update([
-            'score' => $score,
-        ]);
+        $article->score = $score;
+        $article->save();
 
         return $score;
     }
@@ -108,14 +107,13 @@ class EvaluationController extends Controller
     // 投稿者のスコアを再計算する
     private function recalculateUserScore(User $user): void
     {
-        $articleScore = $user->articles()
+        $userArticleScoreTotal = $user->articles()
             ->get()
             ->sum(function (Article $article) {
                 return max(-3, min(3, $article->score));
             });
 
-        $user->update([
-            'score' => 100 + $articleScore,
-        ]);
+        $user->score = 100 + $userArticleScoreTotal;
+        $user->save();
     }
 }

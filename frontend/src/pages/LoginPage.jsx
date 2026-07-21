@@ -42,13 +42,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>ログイン</h1>
+    <section className="auth-page" aria-labelledby="login-title">
+      <h1 id="login-title">ログイン</h1>
 
-      <ErrorMessage message={error} />
+      <ErrorMessage className="auth-page__error" message={error} />
 
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <div className="auth-form__field">
           <label htmlFor="email">メールアドレス</label>
           <input
             id="email"
@@ -59,7 +59,7 @@ export default function LoginPage() {
           />
         </div>
 
-        <div>
+        <div className="auth-form__field">
           <label htmlFor="password">パスワード</label>
           <input
             id="password"
@@ -70,14 +70,14 @@ export default function LoginPage() {
           />
         </div>
 
-        <button type="submit" disabled={loading}>
+        <button className="auth-form__submit" type="submit" disabled={loading}>
           {loading ? 'ログイン中…' : 'ログイン'}
         </button>
       </form>
 
-      <p>
-        <Link to="/register">新規登録はこちら</Link>
+      <p className="auth-page__switch">
+        はじめての方は <Link to="/register">新規登録</Link>
       </p>
-    </div>
+    </section>
   );
 }

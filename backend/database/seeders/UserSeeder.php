@@ -31,7 +31,13 @@ class UserSeeder extends Seeder
                 'email' => 'charlie@example.com',
                 'password' => 'password',
                 'profile' => 'PHPとMySQLを勉強しています。',
-            ]
+            ],
+            [
+                'username' => 'unverified_ai',
+                'email' => 'unverified_ai@example.com',
+                'password' => 'password',
+                'profile' => '検証をせずに技術記事を量産しています。',
+            ],
         ];
 
         foreach ($users as $user) {

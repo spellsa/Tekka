@@ -34,6 +34,14 @@ class TagSeeder extends Seeder
                 'display_name' => 'MySQL',
                 'normalized_name' => 'mysql',
             ],
+            [
+                'display_name' => 'Processing',
+                'normalized_name' => 'processing',
+            ],
+            [
+                'display_name' => 'C',
+                'normalized_name' => 'c',
+            ],
         ];
 
         foreach ($tags as $tag) {

@@ -9,13 +9,23 @@ export default function ArticleCard({ article }) {
   const jstDate = date.toLocaleDateString('ja-JP');
 
   return (
-    <div>
-      <Link to={`/articles/${article.id}`}>{article.title}</Link>
-      <p>{article.excerpt}</p>
-      <p>{article.score}</p>
-      <Link to={`/users/${article.author.id}`}>{article.author.username}</Link>
-      <p>{jstDate}</p>
-      <TagList tags={article.tags} />
-    </div>
+    <article className="article-row">
+      <div className="article-row__content">
+        <div className="article-row__tags" aria-label="タグ">
+          <TagList tags={article.tags} />
+        </div>
+        <h2>
+          <Link to={`/articles/${article.id}`}>{article.title}</Link>
+        </h2>
+        <p className="article-row__excerpt">{article.excerpt}</p>
+      </div>
+      <aside className="article-row__meta" aria-label="記事情報">
+        <span className="article-score">{article.score}</span>
+        <div>
+          <Link to={`/users/${article.author.id}`} className="article-author">{article.author.username}</Link>
+          <time dateTime={article.published_at}>{jstDate}</time>
+        </div>
+      </aside>
+    </article>
   );
 }

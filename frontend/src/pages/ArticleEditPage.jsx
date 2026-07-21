@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as api from '../api';
+import ArticleEditorForm from '../components/ArticleEditorForm';
 import ErrorMessage from '../components/ErrorMessage';
 import Loading from '../components/Loading';
 
@@ -129,52 +130,26 @@ export default function ArticleEditPage() {
   }
 
   return (
-    <div>
-      <h1>記事編集</h1>
+    <section className="article-edit-page" aria-labelledby="article-edit-title">
+      <header className="article-edit-page__heading">
+        <h1 id="article-edit-title">記事編集</h1>
+      </header>
 
-      <ErrorMessage message={error} />
+      <ErrorMessage className="article-edit-page__error" message={error} />
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">タイトル</label>
-          <input
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            maxLength={100}
-            required
-          />
-          {validationErrors.title && <div>{validationErrors.title}</div>}
-        </div>
-
-        <div>
-          <label htmlFor="body">本文</label>
-          <textarea
-            id="body"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            maxLength={50000}
-            required
-          />
-          {validationErrors.body && <div>{validationErrors.body}</div>}
-        </div>
-
-        <div>
-          <label htmlFor="tags">タグ（1行につき1タグ）</label>
-          <textarea
-            id="tags"
-            value={tagsInput}
-            onChange={(e) => setTagsInput(e.target.value)}
-            placeholder="タグ名を1行に1つずつ入力"
-          />
-          {validationErrors.tags && <div>{validationErrors.tags}</div>}
-        </div>
-
-        <button type="submit" disabled={loading}>
-          {loading ? '更新中…' : '更新する'}
-        </button>
-      </form>
-    </div>
+      <ArticleEditorForm
+        title={title}
+        body={body}
+        tagsInput={tagsInput}
+        validationErrors={validationErrors}
+        loading={loading}
+        submitLabel={loading ? '更新中…' : '更新する'}
+        cancelTo={`/articles/${id}`}
+        onSubmit={handleSubmit}
+        onTitleChange={setTitle}
+        onBodyChange={setBody}
+        onTagsChange={setTagsInput}
+      />
+    </section>
   );
 }

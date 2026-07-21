@@ -22,6 +22,15 @@ class ArticleEvaluationSeeder extends Seeder
             ['username' => 'bob', 'title' => 'MySQLのインデックス入門', 'value' => 'low'],
             ['username' => 'bob', 'title' => 'Form Requestで入力を整理する', 'value' => 'high'],
             ['username' => 'charlie', 'title' => 'Form Requestで入力を整理する', 'value' => 'low'],
+            ['username' => 'alice', 'title' => '【完全保存版】PHPはechoだけでWeb開発できる！？最短でプロになる方法 🚀', 'value' => 'low'],
+            ['username' => 'alice', 'title' => 'PHPの配列を全部覚えるだけで最強になれる件 😊', 'value' => 'low'],
+            ['username' => 'alice', 'title' => 'エラーは全部var_dumpでOK！PHPデバッグの革命 🔥', 'value' => 'low'],
+            ['username' => 'alice', 'title' => 'Processingで宇宙っぽい背景を作れば作品が完成する！🌌', 'value' => 'low'],
+            ['username' => 'alice', 'title' => 'for文を回せばアートになる！Processing入門 🎨', 'value' => 'low'],
+            ['username' => 'alice', 'title' => 'マウス座標を使えばインタラクティブ作品が量産できる✨', 'value' => 'low'],
+            ['username' => 'alice', 'title' => 'C言語はポインタを使えば速い！たぶん！🚀', 'value' => 'low'],
+            ['username' => 'alice', 'title' => 'mallocを使えばメモリは無限に使える！？C言語の裏技', 'value' => 'low'],
+            ['username' => 'alice', 'title' => 'scanfだけで入力処理は完璧！C言語初心者の最短ルート', 'value' => 'low'],
         ];
 
         foreach ($evaluations as $evaluationData) {

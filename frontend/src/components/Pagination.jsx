@@ -7,20 +7,20 @@ export default function Pagination({ meta, onPageChange }) {
   }
 
   return (
-    <div>
+    <nav className="pagination" aria-label="記事一覧のページ送り">
       <button
         onClick={() => onPageChange(meta.current_page - 1)}
         disabled={meta.current_page <= 1}
       >
         前へ
       </button>
-      <span>ページ {meta.current_page} / {meta.last_page}</span>
+      <span className="pagination__status">{meta.current_page} / {meta.last_page}</span>
       <button
         onClick={() => onPageChange(meta.current_page + 1)}
         disabled={meta.current_page >= meta.last_page}
       >
         次へ
       </button>
-    </div>
+    </nav>
   );
 }

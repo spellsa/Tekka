@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import * as api from '../api';
-import ArticleCard from '../components/ArticleCard';
+import UserArticleListItem from '../components/UserArticleListItem';
 import Pagination from '../components/Pagination';
 import Loading from '../components/Loading';
+import ErrorMessage from '../components/ErrorMessage';
 
 // ユーザーページ
 // プロフィール + 投稿記事一覧
@@ -20,6 +21,8 @@ export default function UserProfilePage() {
   const [page, setPage] = useState(1);
   const [articlesLoading, setArticlesLoading] = useState(true);
   const [articlesError, setArticlesError] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [isScoreVisible, setIsScoreVisible] = useState(false);
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -53,7 +56,7 @@ export default function UserProfilePage() {
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [id, refreshKey]);
 
   // 記事一覧を取得する。ページ番号が変わったときも再取得する
   useEffect(() => {
@@ -89,11 +92,11 @@ export default function UserProfilePage() {
     return () => {
       cancelled = true;
     };
-  }, [id, page]);
+  }, [id, page, refreshKey]);
 
   // エラー（404） — プロフィールが取得できなかった場合
   if (profileError) {
-    return <div>{profileError}</div>;
+    return <ErrorMessage className="user-profile-page" message={profileError} />;
   }
 
   // プロフィール未取得
@@ -103,6 +106,27 @@ export default function UserProfilePage() {
 
   // 自分のユーザーページかどうか
   const isOwnProfile = user?.id === profileData.id;
+  let scoreMarker = '▸';
+  let scoreContent = null;
+
+  if (isScoreVisible) {
+    scoreMarker = '▾';
+    scoreContent = (
+      <div className="profile-score__content">
+        <strong>{profileData.score}</strong>
+        <p>投稿記事の評価をもとにした目安です。</p>
+      </div>
+    );
+  }
+
+  // 記事削除後に一覧とスコアを更新する
+  const handleArticleDeleted = () => {
+    if (articles?.length === 1 && page > 1) {
+      setPage(page - 1);
+    }
+
+    setRefreshKey((currentRefreshKey) => currentRefreshKey + 1);
+  };
 
   let articlesContent;
   if (articlesLoading) {
@@ -115,7 +139,12 @@ export default function UserProfilePage() {
     articlesContent = (
       <>
         {articles.map((article) => (
-          <ArticleCard key={article.id} article={article} />
+          <UserArticleListItem
+            key={article.id}
+            article={article}
+            canManage={isOwnProfile}
+            onDeleted={handleArticleDeleted}
+          />
         ))}
         <Pagination meta={meta} onPageChange={setPage} />
       </>
@@ -123,16 +152,43 @@ export default function UserProfilePage() {
   }
 
   return (
-    <div>
-      {/* プロフィールセクション */}
-      <h1>{profileData.username}</h1>
-      <p>ユーザースコア: {profileData.score}</p>
-      <p>{profileData.profile ?? 'プロフィール文はありません'}</p>
-      {isOwnProfile && <Link to="/settings/profile">プロフィールを編集</Link>}
+    <section className="user-profile-page" aria-labelledby="profile-page-title">
+      <header className="user-profile-page__heading">
+        <h1 id="profile-page-title">{profileData.username}</h1>
+      </header>
 
-      {/* 記事一覧セクション */}
-      <h2>投稿記事</h2>
-      {articlesContent}
-    </div>
+      <div className="user-profile-page__content">
+        <aside className="user-profile-page__summary" aria-label={`${profileData.username}のプロフィール`}>
+          <div className="profile-score">
+            <button
+              type="button"
+              className="profile-score__toggle"
+              aria-expanded={isScoreVisible}
+              onClick={() => setIsScoreVisible(!isScoreVisible)}
+            >
+              <span aria-hidden="true">{scoreMarker}</span>
+              ユーザースコア
+            </button>
+            {scoreContent}
+          </div>
+
+          <section className="profile-description" aria-labelledby="profile-description-title">
+            <h3 id="profile-description-title">プロフィール文</h3>
+            <p>{profileData.profile || 'プロフィール文はありません。'}</p>
+          </section>
+
+          {isOwnProfile && (
+            <Link to="/settings/profile" className="profile-edit-link">プロフィールを編集</Link>
+          )}
+        </aside>
+
+        <section className="user-profile-page__articles" aria-labelledby="profile-articles-title">
+          <h2 id="profile-articles-title">投稿記事</h2>
+          <div className="user-profile-page__article-list">
+            {articlesContent}
+          </div>
+        </section>
+      </div>
+    </section>
   );
 }

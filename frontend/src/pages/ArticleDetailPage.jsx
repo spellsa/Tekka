@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
 import * as api from '../api';
 import { useAuth } from '../context/AuthContext';
+import ArticleMarkdown from '../components/ArticleMarkdown';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 import TagList from '../components/TagList';
@@ -98,48 +98,63 @@ export default function ArticleDetailPage() {
   // 記事の取得に失敗した場合はエラーメッセージだけを表示する
   if (error && !article) {
     return (
-      <div>
+      <section className="article-detail article-detail--error">
         <h1>エラー</h1>
         <ErrorMessage message={error} />
-      </div>
+      </section>
+    );
+  }
+
+  const isArticleAuthor = user?.id === article.author.id;
+  let voteContent = <output className="article-vote__score" aria-label={`現在のスコア: ${articleScore}`}>{articleScore}</output>;
+
+  if (user) {
+    voteContent = (
+      <EvaluationButtons
+        articleId={id}
+        currentEvaluation={currentUserEvaluation}
+        score={articleScore}
+        onEvaluationChange={handleEvaluationChange}
+        disabled={isArticleAuthor}
+      />
     );
   }
 
   return (
-    <div>
-      <h1>{article.title}</h1>
+    <article className="article-detail" aria-labelledby="article-detail-title">
+      <header className="article-detail__header">
+        <div className="article-detail__tags" aria-label="タグ">
+          <TagList tags={article.tags} />
+        </div>
 
-      <p>
-        <Link to={`/users/${article.author.id}`}>{article.author.username}</Link>
-      </p>
+        <h1 id="article-detail-title">{article.title}</h1>
 
-      <p>投稿日時: {formatDate(article.published_at)}</p>
-      {article.updated_at && <p>更新日時: {formatDate(article.updated_at)}</p>}
+        <div className="article-detail__metadata">
+          <div className="article-detail__author">
+            <Link to={`/users/${article.author.id}`}>{article.author.username}</Link>
+            <time dateTime={article.published_at}>{formatDate(article.published_at)}</time>
+            {article.updated_at && <time dateTime={article.updated_at}>更新 {formatDate(article.updated_at)}</time>}
+          </div>
 
-      <p>スコア: {articleScore}</p>
+          {isArticleAuthor && (
+            <div className="article-detail__actions">
+              <Link to={`/articles/${id}/edit`}>編集</Link>
+              <button type="button" onClick={handleDelete}>削除</button>
+            </div>
+          )}
+        </div>
+      </header>
 
-      <TagList tags={article.tags} />
+      <div className="article-detail__reading">
+        <aside className="article-detail__vote" aria-label="記事の評価">
+          {voteContent}
+        </aside>
 
-      <ReactMarkdown skipHtml>{article.body}</ReactMarkdown>
-
-      {/* 削除などの操作エラーは記事本文の下に表示する */}
-      <ErrorMessage message={error} />
-
-      {user && user.id !== article.author.id && (
-        <EvaluationButtons
-          articleId={id}
-          currentEvaluation={currentUserEvaluation}
-          onEvaluationChange={handleEvaluationChange}
-        />
-      )}
-
-      {/* 編集・削除ボタンは投稿者本人だけに表示する */}
-      {user?.id === article.author.id && (
-        <>
-          <Link to={`/articles/${id}/edit`}>編集</Link>
-          <button onClick={handleDelete}>削除</button>
-        </>
-      )}
-    </div>
+        <div className="article-detail__body">
+          <ArticleMarkdown markdown={article.body} />
+          <ErrorMessage className="article-detail__error" message={error} />
+        </div>
+      </div>
+    </article>
   );
 }

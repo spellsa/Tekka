@@ -46,32 +46,44 @@ export default function ArticleListPage() {
   }, [page]);
 
   if (loading) {
-    return <Loading />;
+    return <Loading className="article-index" />;
   }
 
   if (error) {
-    return <ErrorMessage message={error} />;
+    return <ErrorMessage className="article-index" message={error} />;
   }
 
   // 記事が0件の場合は空メッセージを表示する（APIは200 + 空配列を返す）
   if (articles !== null && articles.length === 0) {
     return (
-      <div>
-        <h1>記事一覧</h1>
-        <p>記事がありません</p>
-      </div>
+      <section className="article-index" aria-labelledby="article-list-title">
+        <div className="article-index__heading">
+          <div>
+            <h1 id="article-list-title">記事一覧</h1>
+          </div>
+        </div>
+        <div className="empty-state">
+          <p>まだ公開されている記事はありません。</p>
+        </div>
+      </section>
     );
   }
 
   return (
-    <div>
-      <h1>記事一覧</h1>
+    <section className="article-index" aria-labelledby="article-list-title">
+      <div className="article-index__heading">
+        <div>
+          <h1 id="article-list-title">記事一覧</h1>
+        </div>
+      </div>
 
-      {articles.map((article) => (
-        <ArticleCard key={article.id} article={article} />
-      ))}
+      <div className="article-list">
+        {articles.map((article) => (
+          <ArticleCard key={article.id} article={article} />
+        ))}
+      </div>
 
       {meta && <Pagination meta={meta} onPageChange={setPage} />}
-    </div>
+    </section>
   );
 }

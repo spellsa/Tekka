@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import * as api from '../api';
 import ErrorMessage from '../components/ErrorMessage';
@@ -8,13 +8,13 @@ import ErrorMessage from '../components/ErrorMessage';
 // PUT /api/user  { username, profile }
 // 成功 → fetchUser() でAuthContext更新 → /users/{id} へ遷移
 export default function ProfileEditPage() {
-  // フォームの初期値はAuthContextから取得する（useState後にuseAuthを呼ぶため、初期値は空文字）
-  const [username, setUsername] = useState('');
-  const [profile, setProfile] = useState('');
+  const { user, fetchUser } = useAuth();
+  // 認証済みユーザーの現在値を、フォームの初期値として使う
+  const [username, setUsername] = useState(user.username || '');
+  const [profile, setProfile] = useState(user.profile || '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { user, fetchUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -43,23 +43,20 @@ export default function ProfileEditPage() {
     }
   };
 
-  // AuthContextのユーザー情報でフォームを初期化する
-  useEffect(() => {
-    if (user) {
-      setUsername(user.username || '');
-      setProfile(user.profile || '');
-    }
-  }, [user]);
-
   return (
-    <div>
-      <h1>プロフィール編集</h1>
+    <section className="profile-edit-page" aria-labelledby="profile-edit-title">
+      <header className="profile-edit-page__heading">
+        <h1 id="profile-edit-title">プロフィール編集</h1>
+      </header>
 
-      <ErrorMessage message={error} />
+      <ErrorMessage className="profile-edit-page__error" message={error} />
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">ユーザー名</label>
+      <form className="profile-edit-form" onSubmit={handleSubmit}>
+        <div className="profile-edit-form__field">
+          <label htmlFor="username">
+            ユーザー名
+            <span className="profile-edit-form__hint">3〜30文字</span>
+          </label>
           <input
             id="username"
             type="text"
@@ -71,8 +68,11 @@ export default function ProfileEditPage() {
           />
         </div>
 
-        <div>
-          <label htmlFor="profile">プロフィール</label>
+        <div className="profile-edit-form__field">
+          <label htmlFor="profile">
+            プロフィール文
+            <span className="profile-edit-form__hint">{profile.length} / 500</span>
+          </label>
           <textarea
             id="profile"
             value={profile}
@@ -81,10 +81,13 @@ export default function ProfileEditPage() {
           />
         </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? '保存中…' : '保存'}
-        </button>
+        <div className="profile-edit-form__actions">
+          <button className="profile-edit-form__submit" type="submit" disabled={loading}>
+            {loading ? '保存中…' : '保存'}
+          </button>
+          <Link to={`/users/${user.id}`} className="profile-edit-form__cancel">キャンセル</Link>
+        </div>
       </form>
-    </div>
+    </section>
   );
 }

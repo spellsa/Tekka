@@ -48,13 +48,13 @@ export default function RegisterPage() {
   };
 
   return (
-    <div>
-      <h1>ユーザー登録</h1>
+    <section className="auth-page" aria-labelledby="register-title">
+      <h1 id="register-title">新規登録</h1>
 
-      <ErrorMessage message={error} />
+      <ErrorMessage className="auth-page__error" message={error} />
 
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <div className="auth-form__field">
           <label htmlFor="username">ユーザー名</label>
           <input
             id="username"
@@ -67,7 +67,7 @@ export default function RegisterPage() {
           />
         </div>
 
-        <div>
+        <div className="auth-form__field">
           <label htmlFor="email">メールアドレス</label>
           <input
             id="email"
@@ -78,8 +78,11 @@ export default function RegisterPage() {
           />
         </div>
 
-        <div>
-          <label htmlFor="password">パスワード</label>
+        <div className="auth-form__field">
+          <label htmlFor="password">
+            パスワード
+            <span className="auth-form__hint">8文字以上</span>
+          </label>
           <input
             id="password"
             type="password"
@@ -90,7 +93,7 @@ export default function RegisterPage() {
           />
         </div>
 
-        <div>
+        <div className="auth-form__field">
           <label htmlFor="password_confirmation">パスワード（確認）</label>
           <input
             id="password_confirmation"
@@ -101,14 +104,14 @@ export default function RegisterPage() {
           />
         </div>
 
-        <button type="submit" disabled={loading}>
+        <button className="auth-form__submit" type="submit" disabled={loading}>
           {loading ? '登録中…' : '登録'}
         </button>
       </form>
 
-      <p>
-        <Link to="/login">ログインはこちら</Link>
+      <p className="auth-page__switch">
+        すでに登録済みの方は <Link to="/login">ログイン</Link>
       </p>
-    </div>
+    </section>
   );
 }

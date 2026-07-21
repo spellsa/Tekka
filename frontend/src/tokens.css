@@ -1,0 +1,55 @@
+/* Hallmark · macrostructure: Index-First · nav: N13-derived search bar · footer: Ft2 · enrichment: none
+ * theme: custom · vibe: "soft blue programmer reading desk" · paper: oklch(98% 0.008 235) · accent: oklch(77% 0.10 235)
+ * display: Kaisei Decol · body: M PLUS Rounded 1c · axes: light / roman-serif / cool
+ * studied: no · context: explicit
+ */
+
+:root {
+  --color-paper: oklch(98% 0.008 235);
+  --color-paper-2: oklch(95% 0.014 235);
+  --color-paper-3: oklch(92% 0.018 235);
+  --color-ink: oklch(22% 0.018 245);
+  --color-ink-2: oklch(38% 0.018 245);
+  --color-muted: oklch(53% 0.016 245);
+  --color-rule: oklch(82% 0.016 235);
+  --color-rule-2: oklch(89% 0.012 235);
+  --color-accent: oklch(77% 0.10 235);
+  --color-accent-strong: oklch(58% 0.14 235);
+  --color-accent-ink: var(--color-ink);
+  --color-focus: oklch(54% 0.18 245);
+  --color-error: oklch(55% 0.18 28);
+
+  --font-display: "Kaisei Decol", serif;
+  --font-body: "M PLUS Rounded 1c", sans-serif;
+  --font-data: var(--font-body);
+
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+  --space-4xl: 6rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: clamp(2rem, 3vw, 3rem);
+  --text-3xl: clamp(2.5rem, 4vw, 4rem);
+
+  --content-max: 76rem;
+  --reading-max: 45rem;
+  --control-height: 2.75rem;
+  --score-size: 2.25rem;
+  --meta-column: 10rem;
+  --radius-sm: 0.4rem;
+  --radius-md: 0.75rem;
+  --radius-full: 999px;
+  --rule: 1px;
+  --dur-fast: 120ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
