@@ -16,3 +16,8 @@
   その次にcallメソッドが内部でそのクラス名を用いてインスタンスを作成してから->runを呼ぶ。
 - seederは自分で決めたものをDBに入れる
   factoryはランダムなデータを大量に投入するのに使う
+- laravelではrequestsの中で定義される、formrequestを使ってバリデーションを行う
+- `confirmed` は「対象フィールド名 + `_confirmation` という名前の確認用フィールドと一致するか」を確認する一般ルール。
+- user::createはuser型のオブジェクトを返す
+- sanctumのAuthを使ってloginを行ったときには、セッションIDがバックエンド側に保存される
+-
