@@ -7,5 +7,10 @@
 - リレーションは「自分は相手に属する」なら `belongsTo`
   「自分は相手を複数持つ」なら `hasMany` を使う。
   記事とタグのように両方が複数ずつ関係する場合は、`belongsToMany` を使う。
-
 - `casts()`には「カラム名 => 型」を書く。書いたカラムは、LaravelがDBから取得したときや保存するときに、その型として自動で変換してくれる。
+- phpで静的メソッドならインスタンスを作らずに::でメソッドを叩ける（とはいえ、Tag::createの構文では、laravelが内部がいい感じにしてくるから叩けるだけ）
+- Seeder書くときには連想配列 + foreachの仕組みを使うと良い
+- seederでinsert使うと、高速ではあるがcreated_atが設定されない。
+- phpにもnamespaceの概念があり、同じnamespace内ではuseがいらない。
+- $this->callすると、ClassName::classでClassNameの完全なクラス名（ほぼパスと同じ）を返す。
+  その次にcallメソッドが内部でそのクラス名を用いてインスタンスを作成してから->runを呼ぶ。
