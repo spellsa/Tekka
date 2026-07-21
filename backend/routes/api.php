@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -35,6 +36,9 @@ Route::put('/articles/{id}', [ArticleController::class, 'update'])
     ->middleware('auth:sanctum');
 
 Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])
+    ->middleware('auth:sanctum');
+
+Route::post('/articles/{id}/evaluation', [EvaluationController::class, 'store'])
     ->middleware('auth:sanctum');
 
 // タグルート
