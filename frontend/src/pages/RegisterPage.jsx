@@ -1,3 +1,10 @@
+/*
+    RegisterPage.jsx
+    ユーザー登録する画面
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { useState } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';

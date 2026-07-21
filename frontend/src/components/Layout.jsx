@@ -1,3 +1,10 @@
+/*
+    Layout.jsx
+    共通ヘッダーとページ表示領域を提供するレイアウトコンポーネント
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';

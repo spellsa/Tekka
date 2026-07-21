@@ -1,3 +1,10 @@
+/*
+    ArticleDetailPage.jsx
+    記事本文と評価を表示する画面
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import * as api from '../api';

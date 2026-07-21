@@ -1,3 +1,10 @@
+/*
+    ArticleCreatePage.jsx
+    新規記事を投稿する画面
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as api from '../api';

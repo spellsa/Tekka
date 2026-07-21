@@ -1,3 +1,10 @@
+/*
+    ArticleEditPage.jsx
+    既存記事を編集する画面
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as api from '../api';

@@ -1,3 +1,10 @@
+/*
+    ArticleEditorForm.jsx
+    記事投稿・編集の入力フォームとプレビューを表示するコンポーネント
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { Link } from 'react-router-dom';
 import ArticleMarkdown from './ArticleMarkdown';
 

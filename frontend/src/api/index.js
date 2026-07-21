@@ -1,3 +1,10 @@
+/*
+    index.js
+    バックエンドAPIを呼び出す処理をまとめたモジュール
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import client, { getCsrfCookie } from './client';
 
 /**

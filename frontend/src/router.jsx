@@ -1,3 +1,10 @@
+/*
+    router.jsx
+    アプリケーションの画面遷移を定義するルート設定
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';

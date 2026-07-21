@@ -1,3 +1,10 @@
+/*
+    ProtectedRoute.jsx
+    認証が必要な画面へのアクセスを制御するコンポーネント
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 

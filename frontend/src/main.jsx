@@ -1,3 +1,10 @@
+/*
+    main.jsx
+    Reactアプリケーションを起動するエントリポイント
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';

@@ -1,3 +1,10 @@
+/*
+    AuthContext.jsx
+    ログインユーザーの認証状態を共有するContext
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import * as api from '../api';
 

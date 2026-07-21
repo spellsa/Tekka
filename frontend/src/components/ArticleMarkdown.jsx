@@ -1,3 +1,10 @@
+/*
+    ArticleMarkdown.jsx
+    記事本文とプレビューで共通のMarkdown表示を行うコンポーネント
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';

@@ -1,3 +1,10 @@
+/*
+    Pagination.jsx
+    記事一覧のページ送りを表示するコンポーネント
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 // ページネーションコンポーネント
 // 最初のページでは「前へ」を無効化し、最後のページでは「次へ」を無効化する
 export default function Pagination({ meta, onPageChange }) {

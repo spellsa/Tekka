@@ -1,3 +1,10 @@
+/*
+    EvaluationButtons.jsx
+    記事への高評価・低評価を操作するコンポーネント
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { useState } from 'react';
 import * as api from '../api';
 

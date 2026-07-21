@@ -1,3 +1,10 @@
+/*
+    client.js
+    Laravel APIとの通信設定とCSRF Cookie取得を担当するモジュール
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import axios from 'axios';
 
 const apiOrigin = import.meta.env.VITE_API_ORIGIN;

@@ -1,3 +1,10 @@
+/*
+    ArticleListPage.jsx
+    記事一覧を表示する画面
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { useState, useEffect } from 'react';
 import * as api from '../api';
 import ArticleCard from '../components/ArticleCard';

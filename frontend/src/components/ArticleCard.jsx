@@ -1,3 +1,10 @@
+/*
+    ArticleCard.jsx
+    記事一覧の各記事を表示するコンポーネント
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { Link } from 'react-router-dom';
 import TagList from './TagList';
 

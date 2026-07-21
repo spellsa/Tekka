@@ -1,3 +1,10 @@
+/*
+    TagArticlesPage.jsx
+    タグ別の記事一覧を表示する画面
+    作成者：北 聖也
+    作成日：2026年7月22日
+*/
+
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import * as api from '../api';
