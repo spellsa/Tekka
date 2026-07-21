@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+const apiOrigin = import.meta.env.VITE_API_ORIGIN;
+
+if (!apiOrigin) {
+  throw new Error('VITE_API_ORIGINが設定されていません。');
+}
+
 // SanctumのSPA認証: CookieベースのセッションとXSRFトークンを自動送信
 const client = axios.create({
-  baseURL: '/api',
+  baseURL: `${apiOrigin}/api`,
   withCredentials: true,
   withXSRFToken: true,
   headers: {
@@ -13,7 +19,8 @@ const client = axios.create({
 client.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // 401かつ/loginにいない場合はリダイレクト
+    if (error.response?.status === 401 && window.location.pathname !== '/login') {
       window.location.href = '/login';
     }
     return Promise.reject(error);
@@ -24,7 +31,7 @@ export default client;
 
 // 状態変更APIの前に必ず呼び、CSRF保護用のCookieを設定する
 export function getCsrfCookie() {
-  return axios.get('/sanctum/csrf-cookie', {
-    baseURL: '',
+  return axios.get(`${apiOrigin}/sanctum/csrf-cookie`, {
+    withCredentials: true,
   });
 }
