@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArticleController;
 
+// 認証ルート
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -10,4 +12,17 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth:sanctum');
 
 Route::get('/user', [AuthController::class, 'user'])
+    ->middleware('auth:sanctum');
+
+// 記事ルート
+Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/articles/{id}', [ArticleController::class, 'show']);
+
+Route::post('/articles', [ArticleController::class, 'store'])
+    ->middleware('auth:sanctum');
+
+Route::put('/articles/{id}', [ArticleController::class, 'update'])
+    ->middleware('auth:sanctum');
+
+Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])
     ->middleware('auth:sanctum');
