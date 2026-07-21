@@ -1,8 +1,8 @@
 <?php
 
 /*
-    RegisterRequest.php
-    ユーザー登録リクエストのバリデーションを担当するクラス
+    LoginRequest.php
+    ログインリクエストのバリデーションを担当するクラス
     作成者：北 聖也
     作成日：2026年7月21日
 */
@@ -11,7 +11,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class RegisterRequest extends ApiFormRequest
+class LoginRequest extends ApiFormRequest
 {
     /**
      * ユーザーがこのリクエストを行う権限があるかどうかを判断する
@@ -29,10 +29,8 @@ class RegisterRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string', 'min:3', 'max:30', 'unique:users,username'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string'],
         ];
     }
 }
